@@ -1,38 +1,39 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
 
-app = FastAPI(title="TrendChef — Live")
+app = FastAPI(title="TrendChef — Live Version")
 
-class Recipe(BaseModel):
-    dish_name: str
-    ingredients: str
-    method: str
-    trend_score: int
+@app.get("/")
+def home():
+    return {"status": "✅ TrendChef работает!", "message": "Привет, шеф! Это твой первый живой endpoint."}
 
 @app.get("/recipe")
 def full_recipe():
     return {
         "dish_name": "Yuzu Miso Glazed Salmon",
-        "ingredients": "180g salmon, 45ml yuzu, 30g miso, 15g ginger",
-        "method": "1. Mix marinade. 2. Marinate 20 min. 3. Grill 4 min per side.",
+        "ingredients": "180g salmon fillet, 45ml yuzu juice, 30g white miso, 15g grated ginger, 10ml sesame oil",
+        "method": "1. Mix yuzu, miso, ginger and sesame oil. 2. Marinate salmon 20 min. 3. Grill 4 min each side at 180°C. 4. Rest 2 min. Serve with pickled cucumber.",
+        "prep_time": 15,
+        "cook_time": 8,
         "trend_score": 97,
-        "growth": "+412%"
+        "growth": "+412% in Brisbane"
     }
 
 @app.get("/generate")
-def generator(style: str = "Fine Dining"):
+def generate_variation(style: str = "Fine Dining"):
     return {
         "variations": [
-            "Yuzu Miso Duck Breast (Mishlen)",
-            "Vegan Yuzu Tofu Bowl",
-            "Budget Yuzu Chicken for Bar"
+            f"1. Yuzu Miso Duck Breast (for {style})",
+            f"2. Vegan Yuzu Tofu with Macadamia (for {style})",
+            f"3. Budget Yuzu Chicken Skewers (for {style})"
         ]
     }
 
-@app.get("/vision")
-def vision():
-    return {"dish_name": "Yuzu Miso Salmon", "cuisine": "Modern Australian-Japanese", "confidence": 94}
-
-@app.get("/trend")
-def trend():
-    return {"score": 97, "growth": "+412%", "sentiment": "very positive"}
+@app.get("/trends")
+def trends():
+    return {
+        "trend_of_day": "Yuzu Miso Salmon from The Fifty Six",
+        "growth": "+412%",
+        "restaurant": "The Fifty Six",
+        "score": 97
+    }

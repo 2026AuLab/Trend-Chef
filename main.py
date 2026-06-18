@@ -24,3 +24,15 @@ def generate():
 @app.get("/trends")
 def trends():
     return {"trend": "Yuzu Miso Salmon", "growth": "+412%", "score": 97}
+# Добавь к существующему коду
+@app.get("/vision")
+def vision_analysis():
+    return {"dish_name": "Yuzu Miso Salmon", "cuisine_style": "Modern Australian-Japanese", "category": "Main", "main_ingredients": "salmon, yuzu, miso", "cooking_techniques": "grill, marinade", "confidence": 96}
+
+@app.get("/analysis")
+def trend_analysis():
+    return {"trend_score": 97, "growth_rate": 412, "sentiment": "very positive", "key_reasons": "Instagram viral, Queensland seafood", "recommendation": "Add to menu today"}
+
+@app.get("/pairing")
+def pairing():
+    return {"garnish": "pickled cucumber + edible flowers", "pairing_suggestion": "Chardonnay or sake"}

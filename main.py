@@ -1,3 +1,14 @@
+from supabase import create_client, Client
+supabase: Client = create_client(
+    "https://gyvcqkoufedoiwftteubv.supabase.co",
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd5dmNxa291ZmVkb2l3ZnRldWJ2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE3ODMwNjksImV4cCI6MjA5NzM1OTA2OX0.ep8Lvesr0LtoG0QCI0oyk9tPus8dd56Vm8SeAYAkORo"
+)
+
+@app.get("/save_recipe")
+def save():
+    data = {"dish": "Yuzu Salmon", "chef": "Alex"}
+    result = supabase.table("dishes").insert(data).execute()
+    return {"saved": result.data}
 from fastapi import FastAPI
 
 app = FastAPI(title="TrendChef — Live")
